@@ -59,82 +59,88 @@ bool VoiceEncoder_Silk::ResetState()
 
 int VoiceEncoder_Silk::Compress(const char *pUncompressedIn, int nSamplesIn, char *pCompressed, int maxCompressedBytes, bool bFinal)
 {
-	signed int nSamplesToUse; // edi@4
-	const __int16 *psRead; // ecx@4
-	int nSamples; // edi@5
-	int nSamplesToEncode; // esi@6
-	char *pWritePos; // ebp@6
-	int nSamplesPerFrame; // [sp+28h] [bp-44h]@5
-	const char *pWritePosMax; // [sp+2Ch] [bp-40h]@5
-	int nSamplesRemaining; // [sp+38h] [bp-34h]@5
-
 	const int inSampleRate = 8000;
-	const int nSampleDataMinMS = 100;
-	const int nSamplesMin = inSampleRate * nSampleDataMinMS / 1000;
+	const int nSampleDataMinMS = 20;
+	const int nSamplesMin = (nSampleDataMinMS * inSampleRate) / 1000;
 
-	/*
-	if ((nSamplesIn + m_bufOverflowBytes.TellPut() / 2) < nSamplesMin && !bFinal) {
-		m_bufOverflowBytes.Put(pUncompressedIn, 2 * nSamplesIn);
+	if (nSamplesIn + GetNumQueuedEncodingSamples() < nSamplesMin && !bFinal)
+	{
+		m_bufOverflowBytes.Put(pUncompressedIn, nSamplesIn * BYTES_PER_SAMPLE);
 		return 0;
 	}
-	*/
 
-	if (m_bufOverflowBytes.TellPut()) {
-		m_bufOverflowBytes.Put(pUncompressedIn, 2 * nSamplesIn);
+	const int16_t *psRead = (const int16_t *)pUncompressedIn;
 
-		psRead = (const __int16 *)m_bufOverflowBytes.Base();
-		nSamplesToUse = m_bufOverflowBytes.TellPut() / 2;
-	} else {
-		psRead = (const __int16 *)pUncompressedIn;
-		nSamplesToUse = nSamplesIn;
+	int nSamplesToUse = nSamplesIn;
+	int nSamplesPerFrame = nSamplesMin;
+	int nSamplesRemaining = nSamplesIn % nSamplesMin;
+
+	if (m_bufOverflowBytes.TellPut() || nSamplesRemaining && bFinal)
+	{
+		m_bufOverflowBytes.Put(pUncompressedIn, nSamplesIn * BYTES_PER_SAMPLE);
+		nSamplesToUse = GetNumQueuedEncodingSamples();
+		nSamplesRemaining = nSamplesToUse % nSamplesPerFrame;
+
+		if (bFinal && nSamplesRemaining)
+		{
+			// fill samples of silence at the remaining bytes
+			for (int i = nSamplesPerFrame - nSamplesRemaining; i > 0; i--)
+			{
+				m_bufOverflowBytes.PutShort(0);
+			}
+
+			nSamplesToUse = GetNumQueuedEncodingSamples();
+			nSamplesRemaining = nSamplesToUse % nSamplesPerFrame;
+		}
+
+		psRead = (const int16_t *)m_bufOverflowBytes.Base();
+		Assert(!bFinal || nSamplesRemaining == 0);
 	}
 
-	nSamplesPerFrame = inSampleRate / 50;
-	nSamplesRemaining = nSamplesToUse % nSamplesPerFrame;
-	pWritePosMax = pCompressed + maxCompressedBytes;
-	nSamples = nSamplesToUse - nSamplesRemaining;
-	pWritePos = pCompressed;
+	char *pWritePos = pCompressed;
+	const char *pWritePosMax = &pCompressed[maxCompressedBytes];
 
+	int nSamples = nSamplesToUse - nSamplesRemaining;
 	while (nSamples > 0)
 	{
-		int16 *pWritePayloadSize = (int16 *)pWritePos;
-		pWritePos += sizeof(int16); //leave 2 bytes for the frame size (will be written after encoding)
+		int16_t *pWritePayloadSize = (int16_t *)pWritePos;
+		pWritePos += sizeof(int16_t);
 
-		int originalNBytes = (pWritePosMax - pWritePos > 0xFFFF) ? -1 : (pWritePosMax - pWritePos);
-		nSamplesToEncode = (nSamples < nSamplesPerFrame) ? nSamples : nSamplesPerFrame;
+		m_encControl.maxInternalSampleRate = 24000;
+		m_encControl.useInBandFEC = 0;
+		m_encControl.useDTX = 1;
+		m_encControl.complexity = 2;
+		m_encControl.API_sampleRate = inSampleRate;
+		m_encControl.packetSize = 20 * (inSampleRate / 1000);
+		m_encControl.packetLossPercentage = m_packetLoss_perc;
+		m_encControl.bitRate = 30000;//(m_targetRate_bps >= 0) ? m_targetRate_bps : 0;//clamp(voice_silk_bitrate.GetInt(), 10000, 40000);
 
-		this->m_encControl.useDTX = 0;
-		this->m_encControl.maxInternalSampleRate = 16000;
-		this->m_encControl.useInBandFEC = 0;
-		this->m_encControl.API_sampleRate = inSampleRate;
-		this->m_encControl.complexity = 2;
-		this->m_encControl.packetSize = 20 * (inSampleRate / 1000);
-		this->m_encControl.packetLossPercentage = this->m_packetLoss_perc;
-		this->m_encControl.bitRate = (m_targetRate_bps >= 0) ? m_targetRate_bps : 0;
+		int nSamplesToEncode = min(nSamples, nSamplesPerFrame);
+
+		int nBytes = ((pWritePosMax - pWritePos) < 0x7FFF) ? (pWritePosMax - pWritePos) : 0x7FFF;
+		int ret = SKP_Silk_SDK_Encode(m_pEncoder, &m_encControl, psRead, nSamplesToEncode, (unsigned char *)pWritePos, (__int16 *)&nBytes);
+		*pWritePayloadSize = nBytes; // write frame size
 
 		nSamples -= nSamplesToEncode;
-
-		int16 nBytes = originalNBytes;
-		int res = SKP_Silk_SDK_Encode(this->m_pEncoder, &this->m_encControl, psRead, nSamplesToEncode, (unsigned char *)pWritePos, &nBytes);
-		*pWritePayloadSize = nBytes; //write frame size
-
-		pWritePos += nBytes;
 		psRead += nSamplesToEncode;
+		pWritePos += nBytes;
 	}
 
 	m_bufOverflowBytes.Clear();
 
-	if (nSamplesRemaining <= nSamplesIn && nSamplesRemaining) {
-		m_bufOverflowBytes.Put(&pUncompressedIn[2 * (nSamplesIn - nSamplesRemaining)], 2 * nSamplesRemaining);
+	if (nSamplesRemaining && nSamplesRemaining <= nSamplesIn)
+	{
+		m_bufOverflowBytes.Put(pUncompressedIn + ((nSamplesIn - nSamplesRemaining) * sizeof(int16_t)), nSamplesRemaining * BYTES_PER_SAMPLE);
 	}
 
 	if (bFinal)
 	{
 		ResetState();
 
-		if (pWritePosMax > pWritePos + 2) {
-			uint16 *pWriteEndFlag = (uint16*)pWritePos;
-			pWritePos += sizeof(uint16);
+		if (pWritePosMax > pWritePos + 2)
+		{
+			uint16_t *pWriteEndFlag = (uint16_t *)pWritePos;
+			pWritePos += sizeof(uint16_t);
 			*pWriteEndFlag = 0xFFFF;
 		}
 	}

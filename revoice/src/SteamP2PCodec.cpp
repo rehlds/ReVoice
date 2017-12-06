@@ -90,10 +90,10 @@ int CSteamP2PCodec::StreamEncode(const char *pUncompressedBytes, int nSamples, c
 	}
 
 	*(writePos++) = PLT_SamplingRate; // Set sampling rate
-	*(uint16 *)writePos = 16000;
+	*(uint16 *)writePos = 8000;
 	writePos += 2;
 
-	*(writePos++) = PLT_Silk; // Voice payload
+	*(writePos++) = PLT_Silk;//PLT_Silk; // Voice payload
 
 	int compressRes = m_BackendCodec->Compress(pUncompressedBytes, nSamples, writePos + 2, maxCompressedBytes - (1 + 2 + 1 + 2), bFinal);
 	if (compressRes == 0) {
@@ -123,18 +123,37 @@ int CSteamP2PCodec::Decompress(const char *pCompressed, int compressedBytes, cha
 	return StreamDecode(pCompressed + 8, compressedBytes - 12, pUncompressed, maxUncompressedBytes);
 }
 
+extern uint64_t g_ulSteamIdCurrent;
+
 int CSteamP2PCodec::Compress(const char *pUncompressedBytes, int nSamples, char *pCompressed, int maxCompressedBytes, bool bFinal)
 {
 	if (maxCompressedBytes < 12) { // no room
 		return 0;
 	}
 
+	/*union CSteamID
+	{
+		uint64 allbits64;
+		struct
+		{
+			uint32 lo;
+			uint32 hi;
+		};
+	};
+
+	CSteamID steamid;
+	steamid.allbits64 = 76561198051972183;
+
 	char *writePos = pCompressed;
-	*(uint32 *)writePos = 0x00000011; // steamid (low part)
+	*(uint32 *)writePos = steamid.lo; // steamid (low part)
 	writePos += 4;
 
-	*(uint32 *)writePos = 0x01100001; // steamid (high part)
-	writePos += 4;
+	*(uint32 *)writePos = steamid.hi; // steamid (high part)
+	writePos += 4;*/
+
+	char *writePos = pCompressed;
+	*(uint64 *)writePos = g_ulSteamIdCurrent;//76561198051972183;
+	writePos += 8;
 
 	int encodeRes = StreamEncode(pUncompressedBytes, nSamples, writePos, maxCompressedBytes - 12, bFinal);
 	if (encodeRes <= 0) {

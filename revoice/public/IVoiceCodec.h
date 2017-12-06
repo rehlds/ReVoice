@@ -12,6 +12,7 @@ public:
 	// Initialize the object. The uncompressed format is always 8-bit signed mono.
 	virtual bool Init(int quality) = 0;
 	virtual void Release() = 0;
+	virtual int GetSamplesPerFrame() { return 0; }
 
 	// Compress the voice data.
 	// pUncompressed		-	16-bit signed mono voice data.

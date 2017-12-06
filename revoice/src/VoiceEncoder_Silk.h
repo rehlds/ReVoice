@@ -23,7 +23,7 @@ public:
 
 	virtual bool Init(int quality);
 	virtual void Release();
-	virtual bool ResetState(); 
+	virtual bool ResetState();
 	virtual int Compress(const char *pUncompressedBytes, int nSamples, char *pCompressed, int maxCompressedBytes, bool bFinal);
 	virtual int Decompress(const char *pCompressed, int compressedBytes, char *pUncompressed, int maxUncompressedBytes);
 

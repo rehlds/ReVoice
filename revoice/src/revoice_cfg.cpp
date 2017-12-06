@@ -18,6 +18,9 @@ bool Revoice_Init_Config()
 	const char *pszGameDir = GET_GAME_INFO(PLID, GINFO_GAMEDIR);
 	const char *pszPluginDir = GET_PLUGIN_PATH(PLID);
 
+	printf("> pszGameDir:   (%s)\n", pszGameDir);
+	printf("> pszPluginDir: (%s)\n", pszPluginDir);
+
 	char szRelativePath[MAX_PATH];
 	strncpy(szRelativePath, &pszPluginDir[strlen(pszGameDir) + 1], sizeof(szRelativePath) - 1);
 	szRelativePath[sizeof(szRelativePath) - 1] = '\0';
@@ -94,7 +97,7 @@ void Cmd_REV_Status()
 	for (int i = 0; i < g_RehldsSvs->GetMaxClients(); i++) {
 		auto plr = &g_Players[i];
 		if (plr->IsConnected()) {
-			printf("#%-4i %-32s %-6s %-4i %-2i %-3s", i + 1, UTIL_VarArgs("\"%s\"", plr->GetClient()->GetName()), plr->GetCodecTypeToString(),	plr->GetVoiceRate(), plr->GetProtocol(), plr->IsHLTV() ? "   (HLTV)" : "");
+			UTIL_ServerPrintf("#%-4i %-32s %-6s %-4i %-2i %-3s", i + 1, UTIL_VarArgs("\"%s\"", plr->GetClient()->GetName()), plr->GetCodecTypeToString(),	plr->GetVoiceRate(), plr->GetProtocol(), plr->IsHLTV() ? "   (HLTV)" : "");
 			nUsers++;
 		}
 	}

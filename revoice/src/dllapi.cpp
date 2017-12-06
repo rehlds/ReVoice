@@ -52,7 +52,7 @@ DLL_FUNCTIONS g_DLLFuncTable =
 	NULL,					// pfnClientDisconnect
 	NULL,					// pfnClientKill
 	NULL,					// pfnClientPutInServer
-	NULL,					// pfnClientCommand
+	&ClientCommand,					// pfnClientCommand
 	NULL,					// pfnClientUserInfoChanged
 	NULL,					// pfnServerActivate
 	NULL,					// pfnServerDeactivate
@@ -105,14 +105,14 @@ DLL_FUNCTIONS g_DLLFuncTable_Post =
 	NULL,					// pfnClientConnect
 	NULL,					// pfnClientDisconnect
 	NULL,					// pfnClientKill
-	NULL,					// pfnClientPutInServer
+	&ClientPutInServer_PostHook,					// pfnClientPutInServer
 	NULL,					// pfnClientCommand
 	NULL,					// pfnClientUserInfoChanged
 	&ServerActivate_PostHook,					// pfnServerActivate
 	NULL,					// pfnServerDeactivate
 	NULL,					// pfnPlayerPreThink
 	NULL,					// pfnPlayerPostThink
-	NULL,					// pfnStartFrame
+	&StartFrame_Post,					// pfnStartFrame
 	NULL,					// pfnParmsNewLevel
 	NULL,					// pfnParmsChangeLevel
 	NULL,					// pfnGetGameDescription

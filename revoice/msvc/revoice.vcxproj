@@ -145,7 +145,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)../src/;$(ProjectDir)../public/;$(ProjectDir)../version/;$(ProjectDir)../include/;$(SolutionDir)../dep/rehlsdk/common/;$(SolutionDir)../dep/rehlsdk/dlls/;$(SolutionDir)../dep/rehlsdk/engine/;$(SolutionDir)../dep/rehlsdk/public/;$(SolutionDir)../dep/silk/include/;$(SolutionDir)../dep/opus/include/;$(SolutionDir)../dep/speex/include/;$(SolutionDir)../dep/metamod/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)../src/;$(ProjectDir)../public/;$(ProjectDir)../version/;$(ProjectDir)../include/;$(SolutionDir)../dep/rehlsdk/common/;$(SolutionDir)../dep/rehlsdk/dlls/;$(SolutionDir)../dep/rehlsdk/engine/;$(SolutionDir)../dep/rehlsdk/public/;$(SolutionDir)../dep/silk/include/;$(SolutionDir)../dep/opus/include/;$(SolutionDir)../dep/speex/include/;$(SolutionDir)../dep/metamod/;$(SolutionDir)../dep/opus/silk/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>precompiled.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
