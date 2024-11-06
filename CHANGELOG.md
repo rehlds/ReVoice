@@ -61,4 +61,4 @@
 ### Changed
 - Updated `ReHLDS API 3.x`
 
-**Full Changelog**: [0.1.0.31](https://github.com/rehlds/revoice/commits/0.1.0.26)
+**Full Changelog**: [0.1.0.26](https://github.com/rehlds/revoice/commits/0.1.0.26)
