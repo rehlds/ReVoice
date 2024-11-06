@@ -37,7 +37,7 @@
 ### Changed
 - Updated `rehlsdk`
 - 
-**Full Changelog**: [0.1.0.29...0.1.0.30](https://github.com/rehlds/revoice/compare/0.1.0.29...0.1.0.30)
+**Full Changelog**: [0.1.0.30...0.1.0.31](https://github.com/rehlds/revoice/compare/0.1.0.30...0.1.0.31)
 
 ## [`0.1.0.30`](https://github.com/rehlds/revoice/releases/tag/0.1.0.30) - 2017-07-09
 
