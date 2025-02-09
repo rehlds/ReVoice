@@ -129,11 +129,24 @@ int VoiceEncoder_Opus::Compress(const char *pUncompressedIn, int nSamplesIn, cha
 			int nBytes = ((pWritePosMax - pWritePos) < 0x7FFF) ? (pWritePosMax - pWritePos) : 0x7FFF;
 			int nWriteBytes = opus_encode(m_pEncoder, (const opus_int16 *)psRead, FRAME_SIZE, (unsigned char *)pWritePos, nBytes);
 
-			psRead += MAX_FRAME_SIZE;
-			pWritePos += nWriteBytes;
-
+			psRead += FRAME_SIZE * BYTES_PER_SAMPLE;
 			nRemainingSamples--;
-			*pWritePayloadSize = nWriteBytes;
+
+			if (nBytes <= 0)
+			{
+				Assert(false);
+				continue;
+			}
+
+			if (nWriteBytes < 2) { // DTX (discontinued transmission)
+				pWritePos = (char*)pWritePayloadSize;
+				*pWritePayloadSize = 0;
+			}
+			else
+			{
+				pWritePos += nWriteBytes;
+				*pWritePayloadSize = nWriteBytes;
+			}
 		}
 		while (nRemainingSamples > 0);
 	}
@@ -200,20 +213,20 @@ int VoiceEncoder_Opus::Decompress(const char *pCompressed, int compressedBytes, 
 
 				for (int i = 0; i < nPacketLoss; i++)
 				{
-					if ((pWritePos + MAX_FRAME_SIZE) >= pWritePosMax)
+					if ((pWritePos + FRAME_SIZE * BYTES_PER_SAMPLE) >= pWritePosMax)
 					{
 						Assert(false);
 						break;
 					}
 
-					int nBytes = opus_decode(m_pDecoder, 0, 0, (opus_int16 *)pWritePos, FRAME_SIZE, 0);
-					if (nBytes <= 0)
+					int nSamples = opus_decode(m_pDecoder, 0, 0, (opus_int16 *)pWritePos, FRAME_SIZE, 0);
+					if (nSamples <= 0)
 					{
 						// raw corrupted
 						continue;
 					}
 
-					pWritePos += nBytes * BYTES_PER_SAMPLE;
+					pWritePos += nSamples * BYTES_PER_SAMPLE;
 				}
 			}
 
@@ -226,29 +239,29 @@ int VoiceEncoder_Opus::Decompress(const char *pCompressed, int compressedBytes, 
 			break;
 		}
 
-		if ((pWritePos + MAX_FRAME_SIZE) > pWritePosMax)
+		if ((pWritePos + FRAME_SIZE * BYTES_PER_SAMPLE) > pWritePosMax)
 		{
 			Assert(false);
 			break;
 		}
 
-		memset(pWritePos, 0, MAX_FRAME_SIZE);
+		memset(pWritePos, 0, FRAME_SIZE * BYTES_PER_SAMPLE);
 
 		if (nPayloadSize == 0)
 		{
 			// DTX (discontinued transmission)
-			pWritePos += MAX_FRAME_SIZE;
+			pWritePos += FRAME_SIZE * BYTES_PER_SAMPLE;
 			continue;
 		}
 
-		int nBytes = opus_decode(m_pDecoder, (const unsigned char *)pReadPos, nPayloadSize, (opus_int16 *)pWritePos, FRAME_SIZE, 0);
-		if (nBytes <= 0)
+		int nSamples = opus_decode(m_pDecoder, (const unsigned char *)pReadPos, nPayloadSize, (opus_int16 *)pWritePos, FRAME_SIZE, 0);
+		if (nSamples <= 0)
 		{
 			// raw corrupted
 		}
 		else
 		{
-			pWritePos += nBytes * BYTES_PER_SAMPLE;
+			pWritePos += nSamples * BYTES_PER_SAMPLE;
 		}
 
 		pReadPos += nPayloadSize;

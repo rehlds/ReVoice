@@ -55,7 +55,8 @@ extern "C"
 
 /* DTX settings */
 #define NB_SPEECH_FRAMES_BEFORE_DTX             10      /* eq 200 ms */
-#define MAX_CONSECUTIVE_DTX                     20      /* eq 400 ms */
+//#define MAX_CONSECUTIVE_DTX                     20      /* eq 400 ms */
+#define MAX_CONSECUTIVE_DTX                     10      /* eq 200 ms */
 
 /* Maximum sampling frequency */
 #define MAX_FS_KHZ                              16
