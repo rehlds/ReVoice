@@ -3,6 +3,7 @@
 CSteamP2PCodec::CSteamP2PCodec(IVoiceCodec *backend)
 {
 	m_BackendCodec = backend;
+	m_Client = nullptr;
 }
 
 bool CSteamP2PCodec::Init(int quality)
@@ -90,7 +91,7 @@ int CSteamP2PCodec::StreamEncode(const char *pUncompressedBytes, int nSamples, c
 	}
 
 	*(writePos++) = PLT_SamplingRate; // Set sampling rate
-	*(uint16 *)writePos = 16000;
+	*(uint16 *)writePos = 8000;
 	writePos += 2;
 
 	*(writePos++) = PLT_Silk; // Voice payload
@@ -130,7 +131,7 @@ int CSteamP2PCodec::Compress(const char *pUncompressedBytes, int nSamples, char 
 	}
 
 	char *writePos = pCompressed;
-	*(uint32 *)writePos = 0x00000011; // steamid (low part)
+	*(uint32 *)writePos = 0x00000011 + (m_Client ? m_Client->GetId() : 0); // steamid (low part)
 	writePos += 4;
 
 	*(uint32 *)writePos = 0x01100001; // steamid (high part)
