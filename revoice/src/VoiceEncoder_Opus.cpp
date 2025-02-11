@@ -132,12 +132,6 @@ int VoiceEncoder_Opus::Compress(const char *pUncompressedIn, int nSamplesIn, cha
 			psRead += FRAME_SIZE * BYTES_PER_SAMPLE;
 			nRemainingSamples--;
 
-			if (nBytes <= 0)
-			{
-				Assert(false);
-				continue;
-			}
-
 			if (nWriteBytes < 2) { // DTX (discontinued transmission)
 				pWritePos = (char*)pWritePayloadSize;
 				*pWritePayloadSize = 0;
