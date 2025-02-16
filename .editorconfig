@@ -1,0 +1,62 @@
+#######################################
+#            Core Options             #
+#######################################
+
+# This file is the top-most EditorConfig file
+root = true
+
+# All Files
+[*]
+charset = utf-8
+guidelines = 120
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+#######################################
+#       File Extension Settings       #
+#######################################
+
+# Markdown
+[*.{md,mdx}]
+trim_trailing_whitespace = false
+
+# JSON
+[*.{json,json5,webmanifest}]
+indent_size = 2
+
+# YAML
+[*.{yml,yaml,clang-format,clang-tidy}]
+indent_size = 2
+
+# CMake
+[{CMakeLists.txt,*.cmake,*.rst}]
+indent_size = 2
+indent_style = space
+
+# Makefile
+[Makefile]
+end_of_line = lf
+indent_style = tab
+
+# Visual Studio Solution
+[*.sln]
+indent_style = tab
+
+# C/C++
+[*.{c++,c,cc,cpp,cppm,cxx,h,h++,hh,hpp,hxx,inl,ipp,ixx,tlh,tli}]
+end_of_line = lf
+
+# C#
+[*.cs]
+end_of_line = crlf
+csharp_prefer_braces = true
+
+# Pawn
+[*.{inc,sma,sp}]
+end_of_line = lf
+
+# Python
+[*.{py,py3}]
+guidelines = 88

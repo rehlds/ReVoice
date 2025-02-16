@@ -1,0 +1,224 @@
+##############
+#   Common   #
+##############
+
+# Auto detect text files and perform LF normalization
+*                       text=auto
+
+# Archives
+*.7z                    binary
+*.bz                    binary
+*.bz2                   binary
+*.bzip2                 binary
+*.gz                    binary
+*.lz                    binary
+*.lzma                  binary
+*.rar                   binary
+*.tar                   binary
+*.taz                   binary
+*.tbz                   binary
+*.tbz2                  binary
+*.tgz                   binary
+*.tlz                   binary
+*.txz                   binary
+*.xz                    binary
+*.Z                     binary
+*.zip                   binary
+*.zst                   binary
+
+# Audio
+*.kar                   binary
+*.m4a                   binary
+*.mid                   binary
+*.midi                  binary
+*.mp3                   binary
+*.ogg                   binary
+*.ra                    binary
+
+# Documents
+*.adoc                  text
+*.bibtex                text diff=bibtex
+*.csv                   text eol=crlf
+*.doc                   diff=astextplain
+*.DOC                   diff=astextplain
+*.docx                  diff=astextplain
+*.DOCX                  diff=astextplain
+*.dot                   diff=astextplain
+*.DOT                   diff=astextplain
+*.epub                  diff=astextplain
+*.md                    text diff=markdown
+*.mdx                   text diff=markdown
+*.mustache              text
+*.pdf                   diff=astextplain
+*.PDF                   diff=astextplain
+*.rtf                   diff=astextplain
+*.RTF                   diff=astextplain
+*.sql                   text
+*.tab                   text
+*.tex                   text diff=tex
+*.textile               text
+*.tsv                   text
+*.txt                   text
+
+# Fonts
+*.eot                   binary
+*.otf                   binary
+*.ttf                   binary
+*.woff                  binary
+*.woff2                 binary
+
+# Graphics
+*.ai                    binary
+*.bmp                   binary
+*.eps                   binary
+*.gif                   binary
+*.gifv                  binary
+*.ico                   binary
+*.jng                   binary
+*.jp2                   binary
+*.jpeg                  binary
+*.jpg                   binary
+*.jpx                   binary
+*.jxr                   binary
+*.png                   binary
+*.psb                   binary
+*.psd                   binary
+*.svg                   binary
+*.svgz                  binary
+*.tif                   binary
+*.tiff                  binary
+*.wbmp                  binary
+*.webp                  binary
+
+# Scripts
+*.bash                  text eol=lf
+*.bat                   text eol=crlf
+*.cmd                   text eol=crlf
+*.fish                  text eol=lf
+*.ksh                   text eol=lf
+*.sh                    text eol=lf
+*.zsh                   text eol=lf
+
+# Video
+*.3gp                   binary
+*.3gpp                  binary
+*.as                    binary
+*.asf                   binary
+*.asx                   binary
+*.avi                   binary
+*.fla                   binary
+*.flv                   binary
+*.m4v                   binary
+*.mng                   binary
+*.mov                   binary
+*.mp4                   binary
+*.mpeg                  binary
+*.mpg                   binary
+*.ogv                   binary
+*.swc                   binary
+*.swf                   binary
+*.webm                  binary
+
+# Text files where line endings should be preserved
+*.patch                 -text
+
+#############
+#   C/C++   #
+#############
+
+# Sources
+*.c                     text eol=lf diff=cpp
+*.c++                   text eol=lf diff=cpp
+*.cc                    text eol=lf diff=cpp
+*.cpi                   text eol=lf diff=cpp
+*.cpp                   text eol=lf diff=cpp
+*.cxx                   text eol=lf diff=cpp
+*.h                     text eol=lf diff=cpp
+*.h++                   text eol=lf diff=cpp
+*.hh                    text eol=lf diff=cpp
+*.hpp                   text eol=lf diff=cpp
+
+# Compiled Object files
+*.lo                    binary
+*.o                     binary
+*.obj                   binary
+*.slo                   binary
+
+# Precompiled Headers
+*.gch                   binary
+*.pch                   binary
+
+# Compiled Dynamic libraries
+*.dll                   binary
+*.dylib                 binary
+*.so                    binary
+
+# Compiled Static libraries
+*.a                     binary
+*.la                    binary
+*.lai                   binary
+*.lib                   binary
+
+# Executables
+*.app                   binary
+*.exe                   binary
+*.out                   binary
+
+#############
+#   CMake   #
+#############
+
+*.cmake                 eol=lf
+CMakeLists.txt          eol=lf
+CMakePresets.json       eol=lf
+CMakeUserPresets.json   eol=lf
+
+####################
+#   EditorConfig   #
+####################
+
+.editorconfig           eol=lf
+
+###########
+#   Git   #
+###########
+
+.gitattributes          eol=lf
+.gitignore              eol=lf
+
+######################
+#   MicrosoftShell   #
+######################
+
+# Source files
+*.mcf                   text eol=crlf
+*.msh                   text eol=crlf
+*.msh1                  text eol=crlf
+*.msh1xml               text eol=crlf
+*.msh2                  text eol=crlf
+*.msh2xml               text eol=crlf
+*.mshxml                text eol=crlf
+
+############
+#   Pawn   #
+############
+
+*.inc                   eol=lf
+*.inl                   eol=lf
+*.sma                   eol=lf
+*.sp                    eol=lf
+*.vault                 binary
+
+##################
+#   PowerShell   #
+##################
+
+# Source files
+*.cdxml                 text eol=crlf
+*.ps1                   text eol=crlf
+*.ps1x                  text eol=crlf
+*.ps1xml                text eol=crlf
+*.psd1                  text eol=crlf
+*.psm1                  text eol=crlf
+*.psrc                  text eol=crlf
+*.pssc                  text eol=crlf
