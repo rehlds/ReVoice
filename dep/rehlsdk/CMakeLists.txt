@@ -1,0 +1,177 @@
+#-------------------------------------------------------------------------------
+# Project Definition
+#-------------------------------------------------------------------------------
+
+project("ReHLSDK")
+
+#-------------------------------------------------------------------------------
+# Target Definition
+#-------------------------------------------------------------------------------
+
+set(TARGET_NAME "rehlsdk")
+set(TARGET_ALIAS "ReHLSDK::${TARGET_NAME}")
+
+add_library("${TARGET_NAME}" INTERFACE)
+add_library("${TARGET_ALIAS}" ALIAS "${TARGET_NAME}")
+
+#-------------------------------------------------------------------------------
+# Source Files
+#-------------------------------------------------------------------------------
+
+target_sources("${TARGET_NAME}"
+  INTERFACE
+    "common/BaseSystemModule.h"
+    "common/beamdef.h"
+    "common/cl_entity.h"
+    "common/com_model.h"
+    "common/con_nprint.h"
+    "common/const.h"
+    "common/crc.h"
+    "common/cvardef.h"
+    "common/demo_api.h"
+    "common/director_cmds.h"
+    "common/dlight.h"
+    "common/dll_state.h"
+    "common/entity_state.h"
+    "common/entity_types.h"
+    "common/enums.h"
+    "common/event_api.h"
+    "common/event_args.h"
+    "common/event_flags.h"
+    "common/hltv.h"
+    "common/IAdminServer.h"
+    "common/IBaseSystem.h"
+    "common/IDemoPlayer.h"
+    "common/IEngineWrapper.h"
+    "common/IGameServerData.h"
+    "common/in_buttons.h"
+    "common/IObjectContainer.h"
+    "common/ISystemModule.h"
+    "common/IVGuiModule.h"
+    "common/ivoicetweak.h"
+    "common/kbutton.h"
+    "common/mathlib.h"
+    "common/md5.h"
+    "common/net_api.h"
+    "common/netadr.h"
+    "common/netapi.h"
+    "common/nowin.h"
+    "common/ObjectDictionary.h"
+    "common/ObjectList.h"
+    "common/parsemsg.h"
+    "common/particledef.h"
+    "common/pmtrace.h"
+    "common/port.h"
+    "common/qfont.h"
+    "common/qlimits.h"
+    "common/quakedef.h"
+    "common/r_efx.h"
+    "common/r_studioint.h"
+    "common/ref_params.h"
+    "common/screenfade.h"
+    "common/Sequence.h"
+    "common/SteamAppStartUp.h"
+    "common/SteamCommon.h"
+    "common/studio_event.h"
+    "common/textconsole.h"
+    "common/TextConsoleUnix.h"
+    "common/TextConsoleWin32.h"
+    "common/TokenLine.h"
+    "common/triangleapi.h"
+    "common/usercmd.h"
+    "common/vmodes.h"
+    "common/weaponinfo.h"
+    "common/winsani_in.h"
+    "common/winsani_out.h"
+
+    "dlls/activity.h"
+    "dlls/activitymap.h"
+    "dlls/animation.h"
+    "dlls/basemonster.h"
+    "dlls/cbase.h"
+    "dlls/cdll_dll.h"
+    "dlls/client.h"
+    "dlls/decals.h"
+    "dlls/doors.h"
+    "dlls/effects.h"
+    "dlls/enginecallback.h"
+    "dlls/explode.h"
+    "dlls/extdll.h"
+    "dlls/func_break.h"
+    "dlls/game.h"
+    "dlls/gamerules.h"
+    "dlls/hornet.h"
+    "dlls/items.h"
+    "dlls/maprules.h"
+    "dlls/monsterevent.h"
+    "dlls/monsters.h"
+    "dlls/nodes.h"
+    "dlls/plane.h"
+    "dlls/player.h"
+    "dlls/saverestore.h"
+    "dlls/schedule.h"
+    "dlls/scriptevent.h"
+    "dlls/skill.h"
+    "dlls/soundent.h"
+    "dlls/spectator.h"
+    "dlls/talkmonster.h"
+    "dlls/teamplay_gamerules.h"
+    "dlls/trains.h"
+    "dlls/util.h"
+    "dlls/vector.h"
+    "dlls/weapons.h"
+
+    "engine/archtypes.h"
+    "engine/bspfile.h"
+    "engine/cmd_rehlds.h"
+    "engine/common_rehlds.h"
+    "engine/crc32c.h"
+    "engine/custom.h"
+    "engine/customentity.h"
+    "engine/d_local.h"
+    "engine/edict.h"
+    "engine/eiface.h"
+    "engine/FlightRecorder.h"
+    "engine/hookchains.h"
+    "engine/keydefs.h"
+    "engine/maintypes.h"
+    "engine/model.h"
+    "engine/modelgen.h"
+    "engine/osconfig.h"
+    "engine/pr_dlls.h"
+    "engine/progdefs.h"
+    "engine/progs.h"
+    "engine/rehlds_api.h"
+    "engine/rehlds_interfaces.h"
+    "engine/Sequence.h"
+    "engine/shake.h"
+    "engine/spritegn.h"
+    "engine/static_map.h"
+    "engine/studio.h"
+    "engine/sys_shared.h"
+    "engine/userid_rehlds.h"
+
+    "pm_shared/pm_debug.h"
+    "pm_shared/pm_defs.h"
+    "pm_shared/pm_info.h"
+    "pm_shared/pm_materials.h"
+    "pm_shared/pm_movevars.h"
+    "pm_shared/pm_shared.h"
+
+    "public/commonmacros.h"
+    "public/FileSystem.h"
+    "public/interface.h"
+)
+
+#-------------------------------------------------------------------------------
+# Include Directories
+#-------------------------------------------------------------------------------
+
+target_include_directories("${TARGET_NAME}" SYSTEM
+  INTERFACE
+    "${PROJECT_SOURCE_DIR}/common"
+    "${PROJECT_SOURCE_DIR}/dlls"
+    "${PROJECT_SOURCE_DIR}/engine"
+    "${PROJECT_SOURCE_DIR}/pm_shared"
+    "${PROJECT_SOURCE_DIR}/public"
+)

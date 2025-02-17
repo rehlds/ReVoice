@@ -81,7 +81,7 @@ extern mBOOL dlclose_handle_invalid;
 	// WINAPI should be provided in the windows compiler headers.
 	// It's usually defined to something like "__stdcall".
 #elif defined(__linux__)
-	#define DLLEXPORT	/* */
+	#define DLLEXPORT	__attribute__((visibility("default")))
 	#define WINAPI		/* */
 #endif /* linux */
 

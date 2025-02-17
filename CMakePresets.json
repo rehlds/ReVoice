@@ -1,0 +1,404 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "description": "Base configuration with common settings and options",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "warnings": {
+        "deprecated": true,
+        "dev": true,
+        "systemVars": true,
+        "uninitialized": false,
+        "unusedCli": false
+      },
+      "hidden": true
+    },
+    {
+      "name": "ninja",
+      "description": "Use Ninja generator",
+      "generator": "Ninja",
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
+      },
+      "hidden": true
+    },
+    {
+      "name": "ninja-multi-config",
+      "description": "Use Ninja Multi-Config generator",
+      "generator": "Ninja Multi-Config",
+      "architecture": {
+        "value": "x86",
+        "strategy": "external"
+      },
+      "hidden": true
+    },
+    {
+      "name": "vs2022",
+      "description": "Use Visual Studio 2022 generator",
+      "generator": "Visual Studio 17 2022",
+      "architecture": {
+        "value": "Win32",
+        "strategy": "set"
+      },
+      "hidden": true
+    },
+    {
+      "name": "gcc",
+      "description": "Use GCC compiler",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "inheritEnvironments": "linux_x86",
+          "intelliSenseMode": "linux-gcc-x86"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "name": "clang",
+      "description": "Use Clang compiler",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      },
+      "hidden": true
+    },
+    {
+      "name": "msvc",
+      "description": "Use MSVC compiler",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "inheritEnvironments": "msvc_x86_x64",
+          "intelliSenseMode": "windows-msvc-x86"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "name": "clang-cl",
+      "description": "Use Clang-CL compiler",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl",
+        "CMAKE_C_COMPILER_TARGET": "i386-pc-windows-msvc",
+        "CMAKE_CXX_COMPILER_TARGET": "i386-pc-windows-msvc"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "inheritEnvironments": [
+            "msvc_x86_x64",
+            "clang_cl_x86"
+          ],
+          "intelliSenseMode": "windows-clang-x86"
+        }
+      },
+      "hidden": true
+    },
+    {
+      "name": "linux",
+      "description": "Configuration for Linux",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Linux"
+          ]
+        },
+        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+          "copySources": true,
+          "copyBuildOutput": true,
+          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}",
+          "copySourcesOptions": {
+            "exclusionList": [
+              ".git",
+              ".vs",
+              "artifacts",
+              "bin",
+              "build",
+              "out",
+              "publish"
+            ]
+          }
+        }
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "hidden": true
+    },
+    {
+      "name": "windows",
+      "description": "Configuration for Windows",
+      "cacheVariables": {
+        "CMAKE_C_SIMULATE_ID": "MSVC",
+        "CMAKE_CXX_SIMULATE_ID": "MSVC"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Windows"
+          ]
+        }
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "hidden": true
+    },
+    {
+      "name": "ninja-gcc-linux",
+      "inherits": [
+        "base",
+        "ninja-multi-config",
+        "gcc",
+        "linux"
+      ]
+    },
+    {
+      "name": "ninja-clang-linux",
+      "inherits": [
+        "base",
+        "ninja-multi-config",
+        "clang",
+        "linux"
+      ]
+    },
+    {
+      "name": "ninja-msvc-windows",
+      "inherits": [
+        "base",
+        "ninja-multi-config",
+        "msvc",
+        "windows"
+      ]
+    },
+    {
+      "name": "vs2022-msvc-windows",
+      "inherits": [
+        "base",
+        "vs2022",
+        "msvc",
+        "windows"
+      ]
+    },
+    {
+      "name": "ninja-clang-windows",
+      "inherits": [
+        "base",
+        "ninja-multi-config",
+        "clang-cl",
+        "windows"
+      ],
+      "hidden": true
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "base",
+      "description": "Base configuration with common settings and options",
+      "verbose": false,
+      "hidden": true
+    },
+    {
+      "name": "linux",
+      "description": "Configuration for Linux",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "hidden": true
+    },
+    {
+      "name": "windows",
+      "description": "Configuration for Windows",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "hidden": true
+    },
+    {
+      "name": "ninja-gcc-linux-debug",
+      "displayName": "Ninja GCC Debug",
+      "description": "Build using Ninja Multi-Config generator and GCC compiler with Debug configuration",
+      "configurePreset": "ninja-gcc-linux",
+      "configuration": "Debug",
+      "inherits": [
+        "base",
+        "linux"
+      ]
+    },
+    {
+      "name": "ninja-gcc-linux-release",
+      "displayName": "Ninja GCC Release",
+      "description": "Build using Ninja Multi-Config generator and GCC compiler with Release configuration",
+      "configurePreset": "ninja-gcc-linux",
+      "configuration": "Release",
+      "inherits": [
+        "base",
+        "linux"
+      ]
+    },
+    {
+      "name": "ninja-gcc-linux-reldebinfo",
+      "displayName": "Ninja GCC RelWithDebInfo",
+      "description": "Build using Ninja Multi-Config generator and GCC compiler with RelWithDebInfo configuration",
+      "configurePreset": "ninja-gcc-linux",
+      "configuration": "RelWithDebInfo",
+      "inherits": [
+        "base",
+        "linux"
+      ]
+    },
+    {
+      "name": "ninja-clang-linux-debug",
+      "displayName": "Ninja Clang Debug",
+      "description": "Build using Ninja Multi-Config generator and Clang compiler with Debug configuration",
+      "configurePreset": "ninja-clang-linux",
+      "configuration": "Debug",
+      "inherits": [
+        "base",
+        "linux"
+      ]
+    },
+    {
+      "name": "ninja-clang-linux-release",
+      "displayName": "Ninja Clang Release",
+      "description": "Build using Ninja Multi-Config generator and Clang compiler with Release configuration",
+      "configurePreset": "ninja-clang-linux",
+      "configuration": "Release",
+      "inherits": [
+        "base",
+        "linux"
+      ]
+    },
+    {
+      "name": "ninja-clang-linux-reldebinfo",
+      "displayName": "Ninja Clang RelWithDebInfo",
+      "description": "Build using Ninja Multi-Config generator and Clang compiler with RelWithDebInfo configuration",
+      "configurePreset": "ninja-clang-linux",
+      "configuration": "RelWithDebInfo",
+      "inherits": [
+        "base",
+        "linux"
+      ]
+    },
+    {
+      "name": "ninja-clang-windows-debug",
+      "displayName": "Ninja Clang Debug",
+      "description": "Build using Ninja Multi-Config generator and Clang compiler with Debug configuration",
+      "configurePreset": "ninja-clang-windows",
+      "configuration": "Debug",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "ninja-clang-windows-release",
+      "displayName": "Ninja Clang Release",
+      "description": "Build using Ninja Multi-Config generator and Clang compiler with Release configuration",
+      "configurePreset": "ninja-clang-windows",
+      "configuration": "Release",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "ninja-clang-windows-reldebinfo",
+      "displayName": "Ninja Clang RelWithDebInfo",
+      "description": "Build using Ninja Multi-Config generator and Clang compiler with RelWithDebInfo configuration",
+      "configurePreset": "ninja-clang-windows",
+      "configuration": "RelWithDebInfo",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "ninja-msvc-windows-debug",
+      "displayName": "Ninja MSVC Debug",
+      "description": "Build using Ninja Multi-Config generator and MSVC compiler with Debug configuration",
+      "configurePreset": "ninja-msvc-windows",
+      "configuration": "Debug",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "ninja-msvc-windows-release",
+      "displayName": "Ninja MSVC Release",
+      "description": "Build using Ninja Multi-Config generator and MSVC compiler with Release configuration",
+      "configurePreset": "ninja-msvc-windows",
+      "configuration": "Release",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "ninja-msvc-windows-reldebinfo",
+      "displayName": "Ninja MSVC RelWithDebInfo",
+      "description": "Build using Ninja Multi-Config generator and MSVC compiler with RelWithDebInfo configuration",
+      "configurePreset": "ninja-msvc-windows",
+      "configuration": "RelWithDebInfo",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "vs2022-msvc-windows-debug",
+      "displayName": "VS 2022 MSVC Debug",
+      "description": "Build using Visual Studio 17 2022 generator and MSVC compiler with Debug configuration",
+      "configurePreset": "vs2022-msvc-windows",
+      "configuration": "Debug",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "vs2022-msvc-windows-release",
+      "displayName": "VS 2022 MSVC Release",
+      "description": "Build using Visual Studio 17 2022 generator and MSVC compiler with Release configuration",
+      "configurePreset": "vs2022-msvc-windows",
+      "configuration": "Release",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "vs2022-msvc-windows-reldebinfo",
+      "displayName": "VS 2022 MSVC RelWithDebInfo",
+      "description": "Build using Visual Studio 17 2022 generator and MSVC compiler with RelWithDebInfo configuration",
+      "configurePreset": "vs2022-msvc-windows",
+      "configuration": "RelWithDebInfo",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    }
+  ]
+}

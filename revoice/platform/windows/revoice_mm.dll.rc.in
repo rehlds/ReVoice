@@ -1,0 +1,36 @@
+#include "winres.h"
+#pragma code_page(65001)
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     @CMAKE_PROJECT_VERSION_MAJOR@,@CMAKE_PROJECT_VERSION_MINOR@,@CMAKE_PROJECT_VERSION_PATCH@
+PRODUCTVERSION  @CMAKE_PROJECT_VERSION_MAJOR@,@CMAKE_PROJECT_VERSION_MINOR@,@CMAKE_PROJECT_VERSION_PATCH@
+FILEFLAGSMASK   0x3fL
+#ifdef _DEBUG
+FILEFLAGS       0x1L
+#else
+FILEFLAGS       0x0L
+#endif
+FILEOS          0x40004L
+FILETYPE        0x2L
+FILESUBTYPE     0x0L
+
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "CompanyName",        "ReHLDS Team"
+            VALUE "ProductName",        "@CMAKE_PROJECT_NAME@"
+            VALUE "InternalName",       "@BIN_OUTPUT_NAME@"
+            VALUE "OriginalFilename",   "@BIN_OUTPUT_NAME@.dll"
+            VALUE "FileVersion",        "@CMAKE_PROJECT_VERSION_MAJOR@.@CMAKE_PROJECT_VERSION_MINOR@.@CMAKE_PROJECT_VERSION_PATCH@"
+            VALUE "ProductVersion",     "@CMAKE_PROJECT_VERSION_MAJOR@.@CMAKE_PROJECT_VERSION_MINOR@.@CMAKE_PROJECT_VERSION_PATCH@"
+            VALUE "FileDescription",    "@CMAKE_PROJECT_DESCRIPTION@"
+            VALUE "LegalCopyright",     "Copyright © 2015-@CURRENT_YEAR@ ReHLDS Team"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
