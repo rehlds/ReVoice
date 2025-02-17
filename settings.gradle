@@ -1,5 +1,0 @@
-rootProject.name = 'revoice'
-include 'revoice'
-include 'dep/opus'
-include 'dep/silk'
-include 'dep/speex'
