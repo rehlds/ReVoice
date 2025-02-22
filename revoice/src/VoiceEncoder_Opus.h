@@ -2,7 +2,7 @@
 
 #include "IVoiceCodec.h"
 #include "utlbuffer.h"
-#include "opus.h"
+#include <opus/opus.h>
 
 const int MAX_CHANNELS = 1;
 const int FRAME_SIZE = 160;

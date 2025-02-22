@@ -1,6 +1,6 @@
 #pragma once
 
-#include "rehlds_api.h"
+#include <rehlsdk/engine/rehlds_api.h>
 
 #define MAX_PLAYERS					32
 

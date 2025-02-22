@@ -2,7 +2,7 @@
 
 #include "IVoiceCodec.h"
 #include "iframeencoder.h"
-#include "speex.h"
+#include <speex/speex.h>
 
 class VoiceEncoder_Speex: public IFrameEncoder {
 protected:
