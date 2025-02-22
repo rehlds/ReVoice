@@ -159,9 +159,9 @@ include("cmake/CompileOptions.cmake")
 # Subdirectories
 #-------------------------------------------------------------------------------
 
-add_subdirectory("dep/speex")
-add_subdirectory("dep/silk")
-add_subdirectory("dep/opus")
-add_subdirectory("dep/rehlsdk")
-add_subdirectory("dep/metamod")
+add_subdirectory("external/speex")
+add_subdirectory("external/silk")
+add_subdirectory("external/opus")
+add_subdirectory("external/rehlsdk")
+add_subdirectory("external/metamod")
 add_subdirectory("revoice")
