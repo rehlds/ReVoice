@@ -1,22 +1,24 @@
-/* Copyright (C) 2002 Jean-Marc Valin 
-   File: quant_lsp.h
-   LSP vector quantization
-
+/* Copyright (C) 2002 Jean-Marc Valin */
+/**
+   @file quant_lsp.h
+   @brief LSP vector quantization
+*/
+/*
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
    are met:
-   
+
    - Redistributions of source code must retain the above copyright
    notice, this list of conditions and the following disclaimer.
-   
+
    - Redistributions in binary form must reproduce the above copyright
    notice, this list of conditions and the following disclaimer in the
    documentation and/or other materials provided with the distribution.
-   
+
    - Neither the name of the Xiph.org Foundation nor the names of its
    contributors may be used to endorse or promote products derived from
    this software without specific prior written permission.
-   
+
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -33,7 +35,8 @@
 #ifndef QUANT_LSP_H
 #define QUANT_LSP_H
 
-#include "speex_bits.h"
+#include "speex/speex_bits.h"
+#include "arch.h"
 
 #define MAX_LSP_SIZE 20
 
@@ -44,28 +47,28 @@
 #define NB_CDBK_SIZE_HIGH2 64
 
 /*Narrowband codebooks*/
-extern signed char cdbk_nb[];
-extern signed char cdbk_nb_low1[];
-extern signed char cdbk_nb_low2[];
-extern signed char cdbk_nb_high1[];
-extern signed char cdbk_nb_high2[];
+extern const signed char cdbk_nb[];
+extern const signed char cdbk_nb_low1[];
+extern const signed char cdbk_nb_low2[];
+extern const signed char cdbk_nb_high1[];
+extern const signed char cdbk_nb_high2[];
 
 /* Quantizes narrowband LSPs with 30 bits */
-void lsp_quant_nb(float *lsp, float *qlsp, int order, SpeexBits *bits);
+void lsp_quant_nb(spx_lsp_t *lsp, spx_lsp_t *qlsp, int order, SpeexBits *bits);
 
 /* Decodes quantized narrowband LSPs */
-void lsp_unquant_nb(float *lsp, int order, SpeexBits *bits);
+void lsp_unquant_nb(spx_lsp_t *lsp, int order, SpeexBits *bits);
 
 /* Quantizes low bit-rate narrowband LSPs with 18 bits */
-void lsp_quant_lbr(float *lsp, float *qlsp, int order, SpeexBits *bits);
+void lsp_quant_lbr(spx_lsp_t *lsp, spx_lsp_t *qlsp, int order, SpeexBits *bits);
 
 /* Decodes quantized low bit-rate narrowband LSPs */
-void lsp_unquant_lbr(float *lsp, int order, SpeexBits *bits);
+void lsp_unquant_lbr(spx_lsp_t *lsp, int order, SpeexBits *bits);
 
 /* Quantizes high-band LSPs with 12 bits */
-void lsp_quant_high(float *lsp, float *qlsp, int order, SpeexBits *bits);
+void lsp_quant_high(spx_lsp_t *lsp, spx_lsp_t *qlsp, int order, SpeexBits *bits);
 
 /* Decodes high-band LSPs */
-void lsp_unquant_high(float *lsp, int order, SpeexBits *bits);
+void lsp_unquant_high(spx_lsp_t *lsp, int order, SpeexBits *bits);
 
 #endif

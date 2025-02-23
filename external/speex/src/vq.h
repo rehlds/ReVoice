@@ -1,22 +1,24 @@
-/* Copyright (C) 2002 Jean-Marc Valin
-   File: vq.h
-   Vector quantization
-
+/* Copyright (C) 2002 Jean-Marc Valin */
+/**
+   @file vq.h
+   @brief Vector quantization
+*/
+/*
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
    are met:
-   
+
    - Redistributions of source code must retain the above copyright
    notice, this list of conditions and the following disclaimer.
-   
+
    - Redistributions in binary form must reproduce the above copyright
    notice, this list of conditions and the following disclaimer in the
    documentation and/or other materials provided with the distribution.
-   
+
    - Neither the name of the Xiph.org Foundation nor the names of its
    contributors may be used to endorse or promote products derived from
    this software without specific prior written permission.
-   
+
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -33,10 +35,20 @@
 #ifndef VQ_H
 #define VQ_H
 
-int vq_index(float *in, float *codebook, int len, int entries);
+#include "arch.h"
 
-void vq_nbest(float *in, float *codebook, int len, int entries, float *E, int N, int *nbest, float *best_dist);
+int scal_quant(spx_word16_t in, const spx_word16_t *boundary, int entries);
+int scal_quant32(spx_word32_t in, const spx_word32_t *boundary, int entries);
 
-void vq_nbest_sign(float *in, float *codebook, int len, int entries, float *E, int N, int *nbest, float *best_dist);
+#ifdef _USE_SSE
+#include <xmmintrin.h>
+void vq_nbest(spx_word16_t *in, const __m128 *codebook, int len, int entries, __m128 *E, int N, int *nbest, spx_word32_t *best_dist, char *stack);
+
+void vq_nbest_sign(spx_word16_t *in, const __m128 *codebook, int len, int entries, __m128 *E, int N, int *nbest, spx_word32_t *best_dist, char *stack);
+#else
+void vq_nbest(spx_word16_t *in, const spx_word16_t *codebook, int len, int entries, spx_word32_t *E, int N, int *nbest, spx_word32_t *best_dist, char *stack);
+
+void vq_nbest_sign(spx_word16_t *in, const spx_word16_t *codebook, int len, int entries, spx_word32_t *E, int N, int *nbest, spx_word32_t *best_dist, char *stack);
+#endif
 
 #endif

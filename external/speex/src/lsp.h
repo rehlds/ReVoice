@@ -14,23 +14,27 @@ Modified by Jean-Marc Valin
     unit circle.
 
 \*---------------------------------------------------------------------------*/
+/**
+   @file lsp.h
+   @brief Line Spectral Pair (LSP) functions.
+*/
 /* Speex License:
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
    are met:
-   
+
    - Redistributions of source code must retain the above copyright
    notice, this list of conditions and the following disclaimer.
-   
+
    - Redistributions in binary form must reproduce the above copyright
    notice, this list of conditions and the following disclaimer in the
    documentation and/or other materials provided with the distribution.
-   
+
    - Neither the name of the Xiph.org Foundation nor the names of its
    contributors may be used to endorse or promote products derived from
    this software without specific prior written permission.
-   
+
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -47,11 +51,12 @@ Modified by Jean-Marc Valin
 #ifndef __AK2LSPD__
 #define __AK2LSPD__
 
-int lpc_to_lsp (float *a, int lpcrdr, float *freq, int nb, float delta, char *stack);
-void lsp_to_lpc(float *freq, float *ak, int lpcrdr, char *stack);
+#include "arch.h"
+
+int lpc_to_lsp (spx_coef_t *a, int lpcrdr, spx_lsp_t *freq, int nb, spx_word16_t delta, char *stack);
+void lsp_to_lpc(const spx_lsp_t *freq, spx_coef_t *ak, int lpcrdr, char *stack);
 
 /*Added by JMV*/
-void lsp_enforce_margin(float *lsp, int len, float margin);
-
+void lsp_interpolate(spx_lsp_t *old_lsp, spx_lsp_t *new_lsp, spx_lsp_t *interp_lsp, int len, int subframe, int nb_subframes, spx_word16_t margin);
 
 #endif	/* __AK2LSPD__ */
