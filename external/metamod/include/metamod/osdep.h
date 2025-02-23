@@ -46,6 +46,28 @@
 
 extern mBOOL dlclose_handle_invalid;
 
+/**
+ * @def NO_INLINE
+ * @brief Prevents the compiler from inlining a function.
+ */
+#undef NO_INLINE
+#ifdef _WIN32
+#define NO_INLINE __declspec(noinline)
+#else
+#define NO_INLINE __attribute__((noinline))
+#endif
+
+/**
+ * @def FORCE_STACK_ALIGN
+ * @brief Aligns the stack pointer to a specific boundary.
+ */
+#undef FORCE_STACK_ALIGN
+#ifdef _WIN32
+#define FORCE_STACK_ALIGN NO_INLINE
+#else
+#define FORCE_STACK_ALIGN __attribute__((force_align_arg_pointer)) NO_INLINE __attribute__((used))
+#endif
+
 // String describing platform/DLL-type, for matching lines in plugins.ini.
 #ifdef __linux__
 	#define PLATFORM		"linux"
@@ -103,7 +125,7 @@ extern mBOOL dlclose_handle_invalid;
 //
 // AFAIK, this is os-independent, but it's included here in osdep.h where
 // DLLEXPORT is defined, for convenience.
-#define C_DLLEXPORT		extern "C" DLLEXPORT
+#define C_DLLEXPORT		extern "C" DLLEXPORT FORCE_STACK_ALIGN
 
 
 #ifdef _MSC_VER
