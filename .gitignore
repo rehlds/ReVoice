@@ -91,6 +91,7 @@ CMakeCache.txt
 CMakeFiles
 CMakeLists.txt.user
 CMakeScripts
+CMakeUserPresets.json
 compile_commands.json
 CTestTestfile.cmake
 install_manifest.txt
