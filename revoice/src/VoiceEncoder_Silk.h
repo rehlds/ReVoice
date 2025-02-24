@@ -2,7 +2,7 @@
 
 #include "IVoiceCodec.h"
 #include "utlbuffer.h"
-#include "SKP_Silk_SDK_API.h"
+#include "silk/SKP_Silk_SDK_API.h"
 
 class VoiceEncoder_Silk : public IVoiceCodec {
 private:
