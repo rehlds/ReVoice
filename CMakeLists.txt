@@ -25,6 +25,7 @@ option(ENABLE_EXCEPTIONS        "Enable support for exception handling"         
 option(ENABLE_ASAN              "Enable AddressSanitizer"                                           OFF)
 option(ENABLE_UBSAN             "Enable UndefinedBehaviorSanitizer"                                 OFF)
 option(ENABLE_LINK_TRACE        "Enable linker trace flag (detailed output of the linking process)" OFF)
+option(ENABLE_SPEEX_VORBIS_PSY  "Enable Vorbis psychoacoustic model in the Speex codec"             OFF)
 option(OPTIMIZE_FOR_CURRENT_CPU "Generate code optimized for the current (native) processor"        OFF)
 
 #-------------------------------------------------------------------------------

@@ -13,7 +13,6 @@ project(        "Speex"
 # Options
 #-------------------------------------------------------------------------------
 
-option(SPEEX_ENABLE_VORBIS_PSY "Enable Vorbis psychoacoustic model" OFF)
 option(SPEEX_USE_KISS_FFT "Use KISS Fast Fourier Transform (otherwise OggVorbis)" OFF)
 
 #-------------------------------------------------------------------------------
@@ -117,7 +116,7 @@ target_sources("${TARGET_NAME}"
       "src/smallft.h"
     >
 
-    $<$<BOOL:${SPEEX_ENABLE_VORBIS_PSY}>:
+    $<$<BOOL:${ENABLE_SPEEX_VORBIS_PSY}>:
       "src/vorbis_psy.c"
       "src/vorbis_psy.h"
     >
@@ -166,7 +165,7 @@ target_compile_definitions("${TARGET_NAME}"
       EXPORT=__attribute__\(\(visibility\(\"default\"\)\)\)
     >
 
-    $<$<BOOL:${SPEEX_ENABLE_VORBIS_PSY}>:VORBIS_PSYCHO>
+    $<$<BOOL:${ENABLE_SPEEX_VORBIS_PSY}>:VORBIS_PSYCHO>
     $<IF:$<BOOL:${SPEEX_USE_KISS_FFT}>,USE_KISS_FFT,USE_SMALLFT>
 )
 
