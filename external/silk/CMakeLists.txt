@@ -2,7 +2,12 @@
 # Project Definition
 #-------------------------------------------------------------------------------
 
-project("Silk")
+project(        "Silk"
+  VERSION       "1.0.9"
+  DESCRIPTION   "Silk voice codec"
+  HOMEPAGE_URL  "http://developer.skype.com/silk"
+  LANGUAGES     "C"
+)
 
 #-------------------------------------------------------------------------------
 # Target Definition
