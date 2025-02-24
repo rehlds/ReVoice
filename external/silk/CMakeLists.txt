@@ -215,4 +215,6 @@ endif()
 target_compile_options("${TARGET_NAME}"
   PRIVATE
     $<IF:$<C_COMPILER_ID:MSVC>,/W0,-w>
+    $<$<AND:$<C_COMPILER_ID:MSVC>,$<NOT:$<CONFIG:Debug>>>:/fp:fast>
+    $<$<AND:$<NOT:$<C_COMPILER_ID:MSVC>>,$<NOT:$<CONFIG:Debug>>>:-ffast-math>
 )
