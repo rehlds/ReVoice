@@ -194,21 +194,6 @@ target_include_directories("${TARGET_NAME}"
 )
 
 #-------------------------------------------------------------------------------
-# Target Properties
-#-------------------------------------------------------------------------------
-
-if(NOT WIN32)
-  set_target_properties("${TARGET_NAME}"
-    PROPERTIES
-      # Disable IPO as it causes some warnings
-      INTERPROCEDURAL_OPTIMIZATION OFF
-      INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL OFF
-      INTERPROCEDURAL_OPTIMIZATION_RELEASE OFF
-      INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO OFF
-  )
-endif()
-
-#-------------------------------------------------------------------------------
 # Compile Options
 #-------------------------------------------------------------------------------
 
