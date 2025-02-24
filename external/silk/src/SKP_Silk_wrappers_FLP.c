@@ -165,7 +165,7 @@ void SKP_Silk_NSQ_wrapper_FLP(
     SKP_int16   x_16[ MAX_FRAME_LENGTH ];
     /* Prediction and coding parameters */
     SKP_int32   Gains_Q16[ NB_SUBFR ];
-    SKP_DWORD_ALIGN SKP_int16 PredCoef_Q12[ 2 ][ MAX_LPC_ORDER ];
+    SKP_DWORD_ALIGN SKP_int16 PredCoef_Q12[ 2 ][ 2 * MAX_LPC_ORDER ];
     SKP_int16   LTPCoef_Q14[ LTP_ORDER * NB_SUBFR ];
     SKP_int     LTP_scale_Q14;
 
