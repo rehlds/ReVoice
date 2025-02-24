@@ -214,5 +214,5 @@ endif()
 
 target_compile_options("${TARGET_NAME}"
   PRIVATE
-    $<IF:$<CXX_COMPILER_ID:MSVC>,/W0,-w>
+    $<IF:$<C_COMPILER_ID:MSVC>,/W0,-w>
 )
