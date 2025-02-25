@@ -205,7 +205,7 @@ int CUtlBuffer::VaScanf(char const* pFmt, va_list list)
 
 	char c;
 	char* pEnd;
-	while (c = *pFmt++)
+	while ((c = *pFmt++))
 	{
 		// Stop if we hit the end of the buffer
 		if (m_Get >= Size())
