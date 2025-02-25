@@ -59,7 +59,7 @@ char *UTIL_VarArgs(char *format, ...)
 void UTIL_ServerPrintf(const char *fmt, ...)
 {
 	// Check is null, test the demo started before than searches pointer to refs
-	if (&g_engfuncs == nullptr || g_engfuncs.pfnServerPrint == nullptr)
+	if (g_engfuncs.pfnServerPrint == nullptr)
 		return;
 
 	static char string[1024];
