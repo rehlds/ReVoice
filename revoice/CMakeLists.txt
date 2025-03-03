@@ -177,11 +177,12 @@ target_link_libraries("${TARGET_NAME}"
 #-------------------------------------------------------------------------------
 
 if(MSVC)
-  set(ILK_FILE_PATH "$<TARGET_FILE_DIR:${TARGET_NAME}>\\${BIN_OUTPUT_NAME}.ilk")
+  set(ILK_FILE_PATH "$<TARGET_FILE_DIR:${TARGET_NAME}>/${BIN_OUTPUT_NAME}.ilk")
   set(ILK_OUTPUT_DIR "${PROJECT_BINARY_DIR}/$<CONFIG>")
+  set(ILK_OUTPUT_PATH "${ILK_OUTPUT_DIR}/${BIN_OUTPUT_NAME}.ilk")
 
   add_custom_command(TARGET "${TARGET_NAME}" POST_BUILD
-    COMMAND cmd /C "if exist \"${ILK_FILE_PATH}\" move \"${ILK_FILE_PATH}\" \"${ILK_OUTPUT_DIR}\\\""
-    COMMENT "Moving '${ILK_FILE_PATH}' file to '${ILK_OUTPUT_DIR}' if it exists"
+    COMMAND ${CMAKE_COMMAND} -E rename "${ILK_FILE_PATH}" "${ILK_OUTPUT_PATH}" >nul 2>&1 || ${CMAKE_COMMAND} -E true
+    COMMENT "Moving '${ILK_FILE_PATH}' file to '${ILK_OUTPUT_DIR}' if it exists..."
   )
 endif()
