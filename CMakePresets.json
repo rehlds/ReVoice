@@ -189,6 +189,16 @@
       ]
     },
     {
+      "name": "ninja-clang-windows",
+      "inherits": [
+        "base",
+        "ninja-multi-config",
+        "clang-cl",
+        "windows"
+      ],
+      "hidden": true
+    },
+    {
       "name": "vs2022-msvc-windows",
       "inherits": [
         "base",
@@ -198,14 +208,16 @@
       ]
     },
     {
-      "name": "ninja-clang-windows",
+      "name": "vs2022-clang-windows",
       "inherits": [
         "base",
-        "ninja-multi-config",
+        "vs2022",
         "clang-cl",
         "windows"
       ],
-      "hidden": true
+      "cacheVariables": {
+        "CMAKE_GENERATOR_TOOLSET": "ClangCL"
+      }
     }
   ],
   "buildPresets": [
@@ -302,39 +314,6 @@
       ]
     },
     {
-      "name": "ninja-clang-windows-debug",
-      "displayName": "Ninja Clang Debug",
-      "description": "Build using Ninja Multi-Config generator and Clang compiler with Debug configuration",
-      "configurePreset": "ninja-clang-windows",
-      "configuration": "Debug",
-      "inherits": [
-        "base",
-        "windows"
-      ]
-    },
-    {
-      "name": "ninja-clang-windows-release",
-      "displayName": "Ninja Clang Release",
-      "description": "Build using Ninja Multi-Config generator and Clang compiler with Release configuration",
-      "configurePreset": "ninja-clang-windows",
-      "configuration": "Release",
-      "inherits": [
-        "base",
-        "windows"
-      ]
-    },
-    {
-      "name": "ninja-clang-windows-reldebinfo",
-      "displayName": "Ninja Clang RelWithDebInfo",
-      "description": "Build using Ninja Multi-Config generator and Clang compiler with RelWithDebInfo configuration",
-      "configurePreset": "ninja-clang-windows",
-      "configuration": "RelWithDebInfo",
-      "inherits": [
-        "base",
-        "windows"
-      ]
-    },
-    {
       "name": "ninja-msvc-windows-debug",
       "displayName": "Ninja MSVC Debug",
       "description": "Build using Ninja Multi-Config generator and MSVC compiler with Debug configuration",
@@ -368,6 +347,39 @@
       ]
     },
     {
+      "name": "ninja-clang-windows-debug",
+      "displayName": "Ninja Clang Debug",
+      "description": "Build using Ninja Multi-Config generator and Clang compiler with Debug configuration",
+      "configurePreset": "ninja-clang-windows",
+      "configuration": "Debug",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "ninja-clang-windows-release",
+      "displayName": "Ninja Clang Release",
+      "description": "Build using Ninja Multi-Config generator and Clang compiler with Release configuration",
+      "configurePreset": "ninja-clang-windows",
+      "configuration": "Release",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "ninja-clang-windows-reldebinfo",
+      "displayName": "Ninja Clang RelWithDebInfo",
+      "description": "Build using Ninja Multi-Config generator and Clang compiler with RelWithDebInfo configuration",
+      "configurePreset": "ninja-clang-windows",
+      "configuration": "RelWithDebInfo",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
       "name": "vs2022-msvc-windows-debug",
       "displayName": "VS 2022 MSVC Debug",
       "description": "Build using Visual Studio 17 2022 generator and MSVC compiler with Debug configuration",
@@ -394,6 +406,39 @@
       "displayName": "VS 2022 MSVC RelWithDebInfo",
       "description": "Build using Visual Studio 17 2022 generator and MSVC compiler with RelWithDebInfo configuration",
       "configurePreset": "vs2022-msvc-windows",
+      "configuration": "RelWithDebInfo",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "vs2022-clang-windows-debug",
+      "displayName": "VS 2022 Clang Debug",
+      "description": "Build using Visual Studio 17 2022 generator and Clang compiler with Debug configuration",
+      "configurePreset": "vs2022-clang-windows",
+      "configuration": "Debug",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "vs2022-clang-windows-release",
+      "displayName": "VS 2022 Clang Release",
+      "description": "Build using Visual Studio 17 2022 generator and Clang compiler with Release configuration",
+      "configurePreset": "vs2022-clang-windows",
+      "configuration": "Release",
+      "inherits": [
+        "base",
+        "windows"
+      ]
+    },
+    {
+      "name": "vs2022-clang-windows-reldebinfo",
+      "displayName": "VS 2022 Clang RelWithDebInfo",
+      "description": "Build using Visual Studio 17 2022 generator and Clang compiler with RelWithDebInfo configuration",
+      "configurePreset": "vs2022-clang-windows",
       "configuration": "RelWithDebInfo",
       "inherits": [
         "base",

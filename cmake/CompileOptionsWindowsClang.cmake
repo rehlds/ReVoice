@@ -12,6 +12,9 @@ add_compile_options(
   -msse4.2              # Enable SSE4.2 extended instruction set
   -fcf-protection=none  # Instrument control-flow architecture protection
 
+  # Generator toolset ClangCL: Enable multi-processor compilation
+  $<$<STREQUAL:${CMAKE_GENERATOR_TOOLSET},ClangCL>:/MP>
+
   # Debug and RelWithDebInfo: Generate complete debug information in PDB files
   $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:/Zi>
 
