@@ -1,0 +1,2 @@
+# Base image with GCC, Clang, and Cppcheck preinstalled
+FROM hun1er/ubuntu-24.04-cxx-build-env-clang

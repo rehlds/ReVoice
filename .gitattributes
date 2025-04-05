@@ -173,6 +173,12 @@ CMakeLists.txt          eol=lf
 CMakePresets.json       eol=lf
 CMakeUserPresets.json   eol=lf
 
+##############
+#   Docker   #
+##############
+
+ubuntu-24.04.gnu.clang  linguist-language=Dockerfile
+
 ####################
 #   EditorConfig   #
 ####################

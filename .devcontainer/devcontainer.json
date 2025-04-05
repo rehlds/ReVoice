@@ -1,0 +1,6 @@
+{
+  "name": "Linux C++ Dev",
+  "build": {
+    "dockerfile": "ubuntu-24.04.gnu.clang"
+  }
+}
